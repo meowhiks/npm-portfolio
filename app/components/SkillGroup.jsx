@@ -27,7 +27,7 @@ export default function SkillGroup({ title, skills, columns = 4, colorTheme = 'b
         <div className={`w-24 h-1 bg-gradient-to-r ${theme.underline}`} style={{ marginTop: '12px', marginBottom: '24px' }}></div>
         <div className={`grid ${columns === 4 ? 'grid-cols-4' : 'grid-cols-8'} gap-4 w-full`}>
           {skills.map((skill, index) => (
-            <SkillItem key={index} icon={skill.icon} name={skill.name} />
+            <SkillItem key={index} icon={skill.icon} name={skill.name} tag={skill.tag} />
           ))}
         </div>
       </div>
