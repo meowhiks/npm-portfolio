@@ -9,6 +9,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Socials from './components/Socials';
 import Footer from './components/Footer';
+import ActiveUsersTracker from './components/ActiveUsersTracker';
 
 export default function Home() {
   const [isDark, setIsDark] = useState(true);
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#02030a]">
+      <ActiveUsersTracker />
       <ParticleBackground />
       <Nav 
         isDark={isDark} 
