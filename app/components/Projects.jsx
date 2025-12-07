@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { translations } from '../translations';
 
-export default function Projects() {
+export default function Projects({ language = 'ru' }) {
+  const t = translations[language];
   return (
     <section className="relative z-10 min-h-screen flex items-start px-8 py-20 bg-[#02030a]">
       <div className="max-w-7xl w-full">
-        <h2 className="text-5xl font-normal text-white" style={{ marginBottom: '64px', marginLeft: '80px' }}>Проекты</h2>
+        <h2 className="text-5xl font-normal text-white" style={{ marginBottom: '64px', marginLeft: '80px' }}>{t.projects.title}</h2>
         
         <div className="flex justify-start" style={{ marginLeft: '80px' }}>
           <div className="bg-gradient-to-r from-purple-400 to-purple-800 rounded-lg" style={{ padding: '1px', maxWidth: '800px', width: '100%' }}>
@@ -40,8 +42,7 @@ export default function Projects() {
               {/* Описание */}
               <div className="mb-6">
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  Проект, связанный с продажей игровых аккаунтов. Платформа предоставляет возможность 
-                  безопасной покупки и продажи игровых аккаунтов для различных игр.
+                  {t.projects.starlyplay.description}
                 </p>
               </div>
               

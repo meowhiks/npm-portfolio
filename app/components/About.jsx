@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { translations } from '../translations';
 
-export default function About() {
+export default function About({ language = 'ru' }) {
+  const t = translations[language];
   return (
     <section className="relative z-10 min-h-screen flex items-center px-8 py-20 bg-[#02030a]">
       <div className="w-full relative">
@@ -34,19 +36,15 @@ export default function About() {
         {/* Текст поверх картинки */}
         <div className="absolute top-1/2 -translate-y-1/2 z-30 max-w-2xl" style={{ left: '96px' }}>
           <h2 className="text-5xl font-normal text-white" style={{ marginBottom: '50px' }}>
-            Обо мне
+            {t.about.title}
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-500 to-teal-500" style={{ marginBottom: '48px' }}></div>
           <p className="text-2xl text-gray-300 leading-relaxed">
-            Приветствую! Меня зовут{' '}
+            {t.about.text}{' '}
             <span className="font-medium" style={{ color: '#ee99c2' }}>
-              Александр
+              {t.about.name}
             </span>
-            . Мне 16 лет, и программированием я увлекаюсь уже около 4 лет — с 12 лет. 
-            За это время я научился разрабатывать полноценные FullStack приложения под ключ, 
-            работал с множеством современных фреймворков и технологий. 
-            В настоящее время обучаюсь в Колледже Бизнеса и Права в Беларуси и активно ищу 
-            возможности для подработки в сфере веб-разработки.
+            {t.about.text2}
           </p>
         </div>
       </div>

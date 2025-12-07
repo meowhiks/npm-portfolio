@@ -7,6 +7,8 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Socials from './components/Socials';
+import Footer from './components/Footer';
 
 export default function Home() {
   const [isDark, setIsDark] = useState(true);
@@ -21,10 +23,12 @@ export default function Home() {
         language={language} 
         setLanguage={setLanguage} 
       />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
+      <Hero language={language} />
+      <About language={language} />
+      <Skills language={language} />
+      <Projects language={language} />
+      <Socials language={language} />
+      <Footer language={language} />
     </div>
   );
 }

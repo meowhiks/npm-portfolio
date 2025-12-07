@@ -12,12 +12,16 @@ const ubuntu = Ubuntu({
 export const metadata = {
   title: 'meowhiks',
   description: 'Portfolio',
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="ru" className={ubuntu.variable}>
       <head>
+        <link rel="icon" href="/icon.png" type="image/svg+xml" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"

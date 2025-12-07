@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import { translations } from '../translations';
 
-export default function Hero() {
+export default function Hero({ language = 'ru' }) {
+  const t = translations[language];
   const layer1Ref = useRef(null);
   const layer2Ref = useRef(null);
   const layer3Ref = useRef(null);
@@ -146,7 +148,7 @@ export default function Hero() {
         <div className="relative">
           <h1 className="text-5xl font-normal text-white">
             <span className="relative inline-block">
-              Приветствую, я
+              {t.hero.greeting}
             </span>
             {' '}
             <span className="relative inline-block bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">

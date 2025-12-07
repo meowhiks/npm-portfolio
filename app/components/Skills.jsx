@@ -1,6 +1,7 @@
 'use client';
 
 import SkillGroup from './SkillGroup';
+import { translations } from '../translations';
 
 const SKILLS_DATA = {
   backend: [
@@ -37,18 +38,20 @@ const SKILLS_DATA = {
   ],
 };
 
-export default function Skills() {
+export default function Skills({ language = 'ru' }) {
+  const t = translations[language];
+  
   return (
     <section className="relative z-10 min-h-screen flex items-center justify-center bg-[#02030a]" style={{ padding: '80px 32px' }}>
       <div className="max-w-7xl w-full">
-        <h2 className="text-5xl font-normal text-white text-center" style={{ marginBottom: '32px' }}>Навыки</h2>
+        <h2 className="text-5xl font-normal text-white text-center" style={{ marginBottom: '32px' }}>{t.skills.title}</h2>
         <div>
           <div className="grid grid-cols-2 gap-16" style={{ padding: '48px', marginBottom: '-60px' }}>
-            <SkillGroup title="Backend" skills={SKILLS_DATA.backend} columns={4} colorTheme="blue" />
-            <SkillGroup title="Frontend" skills={SKILLS_DATA.frontend} columns={4} colorTheme="pink" />
+            <SkillGroup title={t.skills.backend} skills={SKILLS_DATA.backend} columns={4} colorTheme="blue" />
+            <SkillGroup title={t.skills.frontend} skills={SKILLS_DATA.frontend} columns={4} colorTheme="pink" />
           </div>
           <div style={{ padding: '48px' }}>
-            <SkillGroup title="Tools & Other" skills={SKILLS_DATA.tools} columns={8} colorTheme="red" />
+            <SkillGroup title={t.skills.tools} skills={SKILLS_DATA.tools} columns={8} colorTheme="red" />
           </div>
         </div>
       </div>
