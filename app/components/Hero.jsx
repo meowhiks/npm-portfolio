@@ -146,7 +146,7 @@ export default function Hero({ language = 'ru' }) {
       {/* Контент */}
       <div className="relative z-10 flex items-center gap-8">
         <div className="relative">
-          <h1 className="text-5xl font-normal text-white">
+          <h1 className="text-5xl font-normal text-white mb-3">
             <span className="relative inline-block">
               {t.hero.greeting}
             </span>
@@ -155,6 +155,9 @@ export default function Hero({ language = 'ru' }) {
               meowhiks
             </span>
           </h1>
+          <p className="text-lg text-gray-400 italic">
+            {t.hero.subtitle}
+          </p>
         </div>
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-full blur-xl opacity-60 animate-pulse"></div>

@@ -6,6 +6,7 @@ export const translations = {
     },
     hero: {
       greeting: 'Приветствую, я',
+      subtitle: '(Выполняю лабораторные работы по арифлогике от 8 Br)',
     },
     about: {
       title: 'Обо мне',
@@ -39,6 +40,7 @@ export const translations = {
     },
     hero: {
       greeting: 'Hello, I am',
+      subtitle: '(I do arithmetic logic labs from 8 Br)',
     },
     about: {
       title: 'About me',
