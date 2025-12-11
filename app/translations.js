@@ -6,7 +6,7 @@ export const translations = {
     },
     hero: {
       greeting: 'Приветствую, я',
-      subtitle: '(Выполняю лабораторные работы по арифлогике от 8 Br)',
+      subtitle: '(Выполняю лабораторные работы по АрифмЛогВт от 8 Br)',
     },
     about: {
       title: 'Обо мне',
