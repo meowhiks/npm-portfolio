@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import ParticleBackground from './components/ParticleBackground';
 import Nav from './components/Nav';
@@ -16,21 +15,28 @@ export default function Home() {
   const [language, setLanguage] = useState('ru');
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#02030a]">
-      <ActiveUsersTracker />
-      <ParticleBackground />
-      <Nav 
-        isDark={isDark} 
-        setIsDark={setIsDark} 
-        language={language} 
-        setLanguage={setLanguage} 
+    <>
+      <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       />
-      <Hero language={language} />
-      <About language={language} />
-      <Skills language={language} />
-      <Projects language={language} />
-      <Socials language={language} />
-      <Footer language={language} />
-    </div>
+      
+      <div className="min-h-screen relative overflow-hidden bg-[#02030a]">
+        <ActiveUsersTracker />
+        <ParticleBackground />
+        <Nav 
+          isDark={isDark} 
+          setIsDark={setIsDark} 
+          language={language} 
+          setLanguage={setLanguage} 
+        />
+        <Hero language={language} />
+        <About language={language} />
+        <Skills language={language} />
+        <Projects language={language} />
+        <Socials language={language} />
+        <Footer language={language} />
+      </div>
+    </>
   );
 }

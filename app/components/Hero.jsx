@@ -13,135 +13,76 @@ export default function Hero({ language = 'ru' }) {
   const layer5Ref = useRef(null);
   const layer6Ref = useRef(null);
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
+useEffect(() => {
+    const containerRef = document.querySelector('.relative.z-10.flex.items-center.justify-center');
+    
+    const createStar = () => {
+      const trail = [];
+      const trailLength = 8;
       
-      const x = (clientX / innerWidth - 0.5);
-      const y = (clientY / innerHeight - 0.5);
+      // Анимация по дуге вверх (медленнее)
+      const duration = Math.random() * 5000 + 4000;
+      const startY = Math.random() * 50 + 20;
+      const startTime = Date.now();
+      const baseOpacity = Math.random() * 0.5 + 0.3;
+      const size = Math.random() * 3 + 1;
       
-      // Разные скорости для каждого слоя (ближние быстрее, дальние медленнее)
-      if (layer1Ref.current) {
-        layer1Ref.current.style.transform = `translate(${x * 50}px, ${y * 50}px) translateZ(150px)`;
-      }
-      if (layer2Ref.current) {
-        layer2Ref.current.style.transform = `translate(${x * 40}px, ${y * 40}px) translateZ(120px)`;
-      }
-      if (layer3Ref.current) {
-        layer3Ref.current.style.transform = `translate(${x * 30}px, ${y * 30}px) translateZ(90px)`;
-      }
-      if (layer4Ref.current) {
-        layer4Ref.current.style.transform = `translate(${x * 20}px, ${y * 20}px) translateZ(60px)`;
-      }
-      if (layer5Ref.current) {
-        layer5Ref.current.style.transform = `translate(${x * 12}px, ${y * 12}px) translateZ(30px)`;
-      }
-      if (layer6Ref.current) {
-        layer6Ref.current.style.transform = `translate(${x * 6}px, ${y * 6}px) translateZ(0px)`;
-      }
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = elapsed / duration;
+        
+        if (progress >= 1) {
+          trail.forEach(particle => particle.remove());
+          return;
+        }
+        
+        const x = Math.pow(progress, 0.7) * 120;
+        const y = startY + progress * 60;
+        
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+          position: absolute;
+          left: ${x}%;
+          bottom: ${y}%;
+          width: ${size}px;
+          height: ${size}px;
+          background: white;
+          border-radius: 50%;
+          opacity: ${(1 - progress) * baseOpacity};
+          pointer-events: none;
+          z-index: 5;
+          box-shadow: 0 0 ${size * 2}px rgba(255, 255, 255, 0.5);
+        `;
+        
+        if (containerRef) {
+          containerRef.appendChild(particle);
+        }
+        
+        trail.push(particle);
+        
+        if (trail.length > trailLength) {
+          const oldParticle = trail.shift();
+          oldParticle.remove();
+        }
+
+        trail.forEach((p, i) => {
+          const trailOpacity = (i / trailLength) * (1 - progress) * baseOpacity;
+          p.style.opacity = trailOpacity;
+        });
+        
+        requestAnimationFrame(animate);
+      };
+      
+      animate();
     };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    
+    const interval = setInterval(createStar, 300);
+    
+    return () => clearInterval(interval);
   }, []);
-
+  
   return (
     <div className="relative z-10 flex items-center justify-center min-h-screen overflow-hidden bg-[#02030a]">
-      {/* Контейнер с 3D перспективой */}
-      <div className="absolute inset-0" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
-        {/* Слой 1 - Ближайший (самый быстрый) */}
-        <div 
-          ref={layer1Ref}
-          className="absolute inset-0 transition-transform duration-300 ease-out"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px)`,
-            backgroundSize: '20px 20px',
-            backgroundPosition: '0 0',
-            maskImage: 'radial-gradient(ellipse 100% 60% at 50% 30%, black 0%, black 50%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 100% 60% at 50% 30%, black 0%, black 50%, transparent 100%)',
-            transformStyle: 'preserve-3d',
-          }}
-        />
-        
-        {/* Слой 2 */}
-        <div 
-          ref={layer2Ref}
-          className="absolute inset-0 transition-transform duration-300 ease-out"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255, 255, 255, 0.12) 0.8px, transparent 0.8px)`,
-            backgroundSize: '14px 14px',
-            backgroundPosition: '7px 7px',
-            maskImage: 'radial-gradient(ellipse 90% 55% at 50% 28%, black 0%, black 45%, transparent 85%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 90% 55% at 50% 28%, black 0%, black 45%, transparent 85%)',
-            transformStyle: 'preserve-3d',
-          }}
-        />
-        
-        {/* Слой 3 */}
-        <div 
-          ref={layer3Ref}
-          className="absolute inset-0 transition-transform duration-300 ease-out"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255, 255, 255, 0.1) 0.6px, transparent 0.6px)`,
-            backgroundSize: '10px 10px',
-            backgroundPosition: '5px 5px',
-            maskImage: 'radial-gradient(ellipse 80% 50% at 50% 25%, black 0%, black 40%, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 80% 50% at 50% 25%, black 0%, black 40%, transparent 80%)',
-            transformStyle: 'preserve-3d',
-          }}
-        />
-        
-        {/* Слой 4 */}
-        <div 
-          ref={layer4Ref}
-          className="absolute inset-0 transition-transform duration-300 ease-out"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255, 255, 255, 0.08) 0.5px, transparent 0.5px)`,
-            backgroundSize: '8px 8px',
-            backgroundPosition: '4px 4px',
-            maskImage: 'radial-gradient(ellipse 70% 45% at 50% 22%, black 0%, black 35%, transparent 75%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 45% at 50% 22%, black 0%, black 35%, transparent 75%)',
-            transformStyle: 'preserve-3d',
-          }}
-        />
-        
-        {/* Слой 5 */}
-        <div 
-          ref={layer5Ref}
-          className="absolute inset-0 transition-transform duration-300 ease-out"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255, 255, 255, 0.1) 1.2px, transparent 1.2px)`,
-            backgroundSize: '24px 24px',
-            backgroundPosition: '0 0',
-            maskImage: 'radial-gradient(ellipse 110% 65% at 50% 32%, black 0%, black 55%, transparent 95%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 110% 65% at 50% 32%, black 0%, black 55%, transparent 95%)',
-            transformStyle: 'preserve-3d',
-          }}
-        />
-        
-        {/* Слой 6 - Дальний (самый медленный) */}
-        <div 
-          ref={layer6Ref}
-          className="absolute inset-0 transition-transform duration-300 ease-out"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255, 255, 255, 0.06) 0.4px, transparent 0.4px)`,
-            backgroundSize: '6px 6px',
-            backgroundPosition: '3px 3px',
-            maskImage: 'radial-gradient(ellipse 60% 40% at 50% 20%, black 0%, black 30%, transparent 70%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 60% 40% at 50% 20%, black 0%, black 30%, transparent 70%)',
-            transformStyle: 'preserve-3d',
-          }}
-        />
-        
-        {/* Градиентное свечение к центру и верху */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse 100% 70% at 50% 20%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 30%, transparent 70%)',
-          }}
-        />
-      </div>
 
       {/* Контент */}
       <div className="relative z-10 flex items-center gap-8">

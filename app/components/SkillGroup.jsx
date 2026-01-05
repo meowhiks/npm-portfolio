@@ -17,18 +17,60 @@ const colorThemes = {
   },
 };
 
-export default function SkillGroup({ title, skills, columns = 4, colorTheme = 'blue' }) {
+export default function SkillGroup({ title, skills = [], columns = 4, colorTheme = 'blue', baseDelay = 0 }) {
   const theme = colorThemes[colorTheme] || colorThemes.blue;
   
+  if (!skills || skills.length === 0) {
+    return null;
+  }
+  
   return (
-    <div className={`bg-gradient-to-r ${theme.border} rounded-lg`} style={{ padding: '1px' }}>
+    <div 
+      className={`skill-group bg-gradient-to-r ${theme.border} rounded-lg`}
+      style={{ 
+        padding: '1px',
+        opacity: 0,
+        animation: `fadeIn 0.8s ease-out ${baseDelay}s forwards`
+      }}
+    >
       <div className="bg-[#02030a] rounded-lg" style={{ padding: '24px' }}>
-        <h3 className="text-3xl font-normal text-white text-left skills-section-title" style={{ marginTop: '0', marginBottom: '0' }}>{title}</h3>
-        <div className={`w-24 h-1 bg-gradient-to-r ${theme.underline}`} style={{ marginTop: '12px', marginBottom: '24px' }}></div>
+        <h3 
+          className="skill-group-title text-3xl font-normal text-white text-left"
+          style={{ 
+            marginTop: '0', 
+            marginBottom: '0',
+            opacity: 0,
+            animation: `fadeInLeft 0.6s ease-out ${baseDelay + 0.2}s forwards`
+          }}
+        >
+          {title}
+        </h3>
+        <div 
+          className={`skill-underline w-24 h-1 bg-gradient-to-r ${theme.underline}`}
+          style={{ 
+            marginTop: '12px', 
+            marginBottom: '24px',
+            transformOrigin: 'left',
+            transform: 'scaleX(0)',
+            animation: `expandWidth 0.6s ease-out ${baseDelay + 0.4}s forwards`
+          }}
+        ></div>
         <div className={`grid ${columns === 4 ? 'grid-cols-4' : 'grid-cols-8'} gap-4 w-full`}>
-          {skills.map((skill, index) => (
-            <SkillItem key={index} icon={skill.icon} name={skill.name} tag={skill.tag} />
-          ))}
+          {skills.map((skill, index) => {
+            const row = Math.floor(index / columns);
+            const col = index % columns;
+            const itemDelay = baseDelay + 0.6 + (row * 0.15) + (col * 0.03);
+            
+            return (
+              <SkillItem 
+                key={`skill-${index}-${skill.name}`}
+                icon={skill.icon} 
+                name={skill.name} 
+                tag={skill.tag}
+                delay={itemDelay}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
